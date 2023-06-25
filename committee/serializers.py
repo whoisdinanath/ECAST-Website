@@ -1,28 +1,25 @@
 from rest_framework import serializers
-from .models import CommitteeMembers, MemberTenure, MemberPosition
+from .models import CommitteeMember, MemberTenure, MemberPosition
 
 
-class CommitteeMembersSerializer(serializers.ModelSerializer):
-    # position = serializers.StringRelatedField()
-    position = serializers.PrimaryKeyRelatedField(
-        queryset=MemberPosition.objects.all())
-    # year = serializers.StringRelatedField()
-    year = serializers.PrimaryKeyRelatedField(
-        queryset=MemberTenure.objects.all())
+class CommitteeMemberSerializer(serializers.ModelSerializer):
+    position = serializers.SlugRelatedField(queryset = MemberPosition.objects.all(), slug_field='position')
+    year = serializers.SlugRelatedField(queryset = MemberTenure.objects.all(), slug_field = 'year')
 
     class Meta:
-        model = CommitteeMembers
-        # fields = ('__all__')
-        fields = ['name', 'position', 'socialMedia', 'memberPhoto', 'year']
+        model = CommitteeMember
+        fields = ['name', 'position', 'facebook', 'linkedin', 'github', 'memberPhoto', 'year']
+
 
 
 class MemberPositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = MemberPosition
-        fields = ('__all__')
+        fields = ['position']
+
 
 
 class MemberTenureSerializer(serializers.ModelSerializer):
     class Meta:
         model = MemberTenure
-        fields = ('__all__')
+        fields = ['year']

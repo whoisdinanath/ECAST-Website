@@ -1,16 +1,15 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-
-from .models import CommitteeMembers, MemberPosition, MemberTenure
-from .serializers import CommitteeMembersSerializer, MemberPositionSerializer, MemberTenureSerializer
+from .models import CommitteeMember, MemberPosition, MemberTenure
+from .serializers import CommitteeMemberSerializer, MemberPositionSerializer, MemberTenureSerializer
 
 
 class CommitteeList(generics.ListCreateAPIView):
-    serializer_class = CommitteeMembersSerializer
+    serializer_class = CommitteeMemberSerializer
 
     def get_queryset(self):
-        queryset = CommitteeMembers.objects.all()
+        queryset = CommitteeMember.objects.all()
         position = self.request.query_params.get('position')
         tenure = self.request.query_params.get('year')
         if position is not None:
@@ -19,17 +18,10 @@ class CommitteeList(generics.ListCreateAPIView):
             queryset = queryset.filter(year=tenure)
         return queryset
 
-    # def create(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_create(serializer)
-    #     headers = self.get_success_headers(serializer.data)
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
 
 class CommitteeDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = CommitteeMembersSerializer
-    queryset = CommitteeMembers.objects.all()
+    serializer_class = CommitteeMemberSerializer
+    queryset = CommitteeMember.objects.all()
 
 
 class TenureList(generics.ListCreateAPIView):
@@ -50,3 +42,4 @@ class PositionList(generics.ListCreateAPIView):
 class PositionDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MemberPositionSerializer
     queryset = MemberPosition.objects.all()
+
