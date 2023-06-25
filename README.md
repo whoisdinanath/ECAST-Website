@@ -11,15 +11,10 @@ The website is in development phase. Stay tuned.
 
 •	Start the development server by typing in ‘python manage.py runserver’
 
-•	Browse the following endpoints and perform CRUD operations on them:
+•	Browse the following endpoint and perform CRUD operations on it:
 
 			http://127.0.0.1:8000/api/committee/
    
-			http://127.0.0.1:8000/api/position/
-   
-			http://127.0.0.1:8000/api/tenureList/
-   
-•	For the detail view endpoints, please check urls.py file in the ‘committee’ app.
 
 
 
