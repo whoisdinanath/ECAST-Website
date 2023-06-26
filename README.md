@@ -7,7 +7,7 @@ The website is in development phase. Stay tuned.
 
 •	cd into ‘ECAST-Website’
 
-•	Run this command in the terminal: pip install requirements.txt
+•	Run this command in the terminal: pip install -r requirements.txt
 
 •	Start the development server by typing in ‘python manage.py runserver’
 
