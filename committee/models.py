@@ -24,7 +24,7 @@ class CommitteeMember(models.Model):
     facebook = models.URLField(blank=True)
     linkedin = models.URLField(blank=True)
     github = models.URLField(blank=True)
-    memberPhoto = models.ImageField(upload_to='media/member_photos/')
+    memberPhoto = models.ImageField(upload_to='member_photos/')
     year = models.ForeignKey(MemberTenure, on_delete=models.CASCADE)
 
     def __str__(self):
