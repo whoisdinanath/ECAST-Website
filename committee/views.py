@@ -1,9 +1,8 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-from .models import CommitteeMember, MemberPosition, MemberTenure
-from .serializers import CommitteeMemberSerializer, MemberPositionSerializer, MemberTenureSerializer
-
+from .models import CommitteeMember, MemberPosition
+from .serializers import CommitteeMemberSerializer, MemberPositionSerializer
 
 class CommitteeList(generics.ListCreateAPIView):
     serializer_class = CommitteeMemberSerializer
@@ -24,14 +23,6 @@ class CommitteeDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = CommitteeMember.objects.all()
 
 
-class TenureList(generics.ListCreateAPIView):
-    serializer_class = MemberTenureSerializer
-    queryset = MemberTenure.objects.all()
-
-
-class TenureDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = MemberTenureSerializer
-    queryset = MemberTenure.objects.all()
 
 
 class PositionList(generics.ListCreateAPIView):

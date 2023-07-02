@@ -1,8 +1,8 @@
 env
-
-__pycache__/
-*.pyc
-*.pyo
-*.pyc/
-*/migrations/
+.env
+**/__pycache__/
+**/migrations/*
+!**/migrations/__init__.py
+mmr.sh
+push.sh
 
