@@ -1,36 +1,31 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-from .models import CommitteeMember, MemberPosition
-from .serializers import CommitteeMemberSerializer, MemberPositionSerializer
+from .models import CommitteeMember
+from .serializers import CommitteeMemberReadSerializer, CommitteMemberWriteSerializer
 
-class CommitteeList(generics.ListCreateAPIView):
-    serializer_class = CommitteeMemberSerializer
+class CommitteeMemberCreate(generics.CreateAPIView):
+    serializer_class = CommitteeMemberReadSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = CommitteMemberWriteSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+## search view for committee members
+class CommitteeMemberSearch(generics.ListAPIView):
+    serializer_class = CommitteeMemberReadSerializer
 
     def get_queryset(self):
         queryset = CommitteeMember.objects.all()
-        position = self.request.query_params.get('position')
-        tenure = self.request.query_params.get('year')
+        name = self.request.query_params.get('name', None)
+        position = self.request.query_params.get('position', None)
+        if name is not None:
+            queryset = queryset.filter(name__icontains=name)
         if position is not None:
-            queryset = queryset.filter(position=position)
-        if tenure is not None:
-            queryset = queryset.filter(year=tenure)
+            queryset = queryset.filter(position__icontains=position)
         return queryset
-
-
-class CommitteeDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = CommitteeMemberSerializer
-    queryset = CommitteeMember.objects.all()
-
-
-
-
-class PositionList(generics.ListCreateAPIView):
-    serializer_class = MemberPositionSerializer
-    queryset = MemberPosition.objects.all()
-
-
-class PositionDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = MemberPositionSerializer
-    queryset = MemberPosition.objects.all()
-

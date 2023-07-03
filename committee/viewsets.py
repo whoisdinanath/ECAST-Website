@@ -1,15 +1,19 @@
 from rest_framework.viewsets import ModelViewSet
-from .models import MemberPosition, SocialMedia, CommitteeMember
-from .serializers import MemberPositionSerializer, SocialMediaSerializer, CommitteeMemberSerializer
+from .models import  SocialMedia, CommitteeMember
+from .serializers import  SocialMediaReadSerializer, CommitteeMemberReadSerializer, CommitteMemberWriteSerializer
 
-class PositionViewset(ModelViewSet):
-    queryset = MemberPosition.objects.all()
-    serializer_class = MemberPositionSerializer
 
 class SocialMediaViewset(ModelViewSet):
     queryset = SocialMedia.objects.all()
-    serializer_class = SocialMediaSerializer
+    serializer_class = SocialMediaReadSerializer
 
+# This viewset will handle all http request so no need to create separate views for each request
+# Search views should be created separately as they are not handled by viewsets
 class CommitteeMemberViewset(ModelViewSet):
     queryset = CommitteeMember.objects.all()
-    serializer_class = CommitteeMemberSerializer
+    lookup_field = 'id'
+
+    def get_serializer_class(self):
+        if ('create', 'update', 'partial_update', 'destroy'):
+            return CommitteMemberWriteSerializer
+        return CommitteeMemberReadSerializer
