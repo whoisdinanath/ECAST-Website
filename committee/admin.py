@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MemberPosition, CommitteeMember, SocialMedia
+from .models import CommitteeMember, SocialMedia
 
 class SocialMediaInline(admin.StackedInline):
     model = SocialMedia
@@ -15,12 +15,7 @@ class CommitteeMemberInline(admin.StackedInline):
     model = CommitteeMember
     extra = 3
 
-class PositionAdmin(admin.ModelAdmin):
-    inlines = [CommitteeMemberInline]
-    list_display = ['position']
-    search_fields = ['position']
 
-admin.site.register(MemberPosition, PositionAdmin)
 admin.site.register(CommitteeMember, CommitteeMemberAdmin)
 admin.site.register(SocialMedia)
 
