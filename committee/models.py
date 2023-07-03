@@ -7,7 +7,9 @@ from django.dispatch import receiver
 
 
 def member_image_path(instance, filename):
-    return f'member/{instance.position}/{instance.name}/{filename}'
+    position = instance.position.replace(" ", "-").lower()
+    name = instance.name.replace(" ", "-").lower()
+    return f'member/{position}/{name}/{filename}'
 
     
 position_choices = (
