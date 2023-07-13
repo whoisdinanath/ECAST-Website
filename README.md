@@ -23,9 +23,13 @@ cd ECAST-Website
 python manage.py runserver
 ```
 
-•	Browse the following endpoint and perform CRUD operations on it:
+•	Browse the following endpoints and perform CRUD operations:
 ```
-http://127.0.0.1:8000/api/committee/
+http://127.0.0.1:8000/api/members/
+http://127.0.0.1:8000/api/socials/
+http://127.0.0.1:8000/api/member/create/
+http://127.0.0.1:8000/api/event/
+http://127.0.0.1:8000/api/newsletter/
 ```
 
 			
