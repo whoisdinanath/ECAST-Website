@@ -4,14 +4,16 @@ import uuid
 from django.utils.translation import gettext_lazy as _
 from django.db.models import signals
 from django.dispatch import receiver
+import os
 
 
 def member_image_path(instance, filename):
-    position = instance.position.replace(" ", "-").lower()
-    name = instance.name.replace(" ", "-").lower()
-    return f'member/{position}/{name}/{filename}'
+    path = "member/"
+    extension = "." + filename.split('.')[-1]
+    format = f'{instance.id}+{extension}'
+    return os.path.join(path, format)
 
-    
+
 position_choices = (
     ('President', 'President'),
     ('Vice President', 'Vice President'),
@@ -26,18 +28,21 @@ position_choices = (
     ('Social Media Manager', 'Social Media Manager'),
 )
 
+
 class CommitteeMember(models.Model):
-    id = models.UUIDField(default=uuid.uuid4, primary_key=True, unique=True, editable=False)
+    id = models.UUIDField(default=uuid.uuid4,
+                          primary_key=True, unique=True, editable=False)
     name = models.CharField(max_length=50, unique=True)
     position = models.CharField(max_length=50, choices=(position_choices))
     started_from = models.DateField(null=False, blank=False)
     tenure = models.PositiveIntegerField()
-    memberPhoto = models.ImageField(upload_to=member_image_path, null=True, blank=True)
+    memberPhoto = models.ImageField(
+        upload_to=member_image_path, null=True, blank=True)
     # year = models.ForeignKey(MemberTenure, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name = _("Committee Member")
         verbose_name_plural = _("Committee Members")
@@ -46,14 +51,14 @@ class CommitteeMember(models.Model):
 
 class SocialMedia(models.Model):
     # id = models.UUIDField(default=uuid.uuid4, primary_key=True, unique=True, editable=False)
-    user = models.ForeignKey(CommitteeMember, on_delete=models.CASCADE, related_name='social_media')
+    user = models.ForeignKey(
+        CommitteeMember, on_delete=models.CASCADE, related_name='social_media')
     platform = models.CharField(max_length=255)
     handle = models.URLField(max_length=255)
 
     def __str__(self):
-        return str(self.user.name)+ " " +str(self.platform)
-    
-    
+        return str(self.user.name) + " " + str(self.platform)
+
 
 @receiver(signals.post_delete, sender=CommitteeMember)
 def delete_social_media(sender, instance, **kwargs):
