@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'committee',
     'rest_framework',
     'corsheaders',
-    'event'
+    'event',
+    'projects.apps.ProjectsConfig',
 ]
 
 MIDDLEWARE = [

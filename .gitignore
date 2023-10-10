@@ -1,5 +1,6 @@
 env
 .env
+media/
 **/__pycache__/
 **/migrations/*
 !**/migrations/__init__.py
