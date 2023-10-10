@@ -37,3 +37,13 @@ class Newsletter(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class Image(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    image = models.ImageField(upload_to='gallery_images/')
+    for_event = models.ForeignKey(
+        Event, on_delete=models.CASCADE, related_name='event_image')
+
+    def __str__(self):
+        return str(self.for_event.title) + " " + str(self.id)

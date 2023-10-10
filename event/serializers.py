@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Event, Newsletter
+from .models import Event, Newsletter, Image
 
 
 class EventSerializer(ModelSerializer):
@@ -13,3 +13,9 @@ class NewsletterSerializer(ModelSerializer):
     class Meta:
         model = Newsletter
         fields = ['id', 'name', 'email', 'for_event']
+
+
+class ImageSerializer(ModelSerializer):
+    class Meta:
+        model = Image
+        fields = ['id', 'image', 'for_event']
