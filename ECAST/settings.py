@@ -26,11 +26,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'committee',
     'rest_framework',
     'corsheaders',
-    'event',
+    'event.apps.EventConfig',
     'projects.apps.ProjectsConfig',
+    'intake.apps.IntakeConfig',
+    'committee.apps.CommitteeConfig',
 ]
 
 MIDDLEWARE = [

@@ -6,9 +6,6 @@ from .serializers import  SocialMediaReadSerializer, CommitteeMemberReadSerializ
 class SocialMediaViewset(ModelViewSet):
     queryset = SocialMedia.objects.all()
     serializer_class = SocialMediaReadSerializer
-
-# This viewset will handle all http request so no need to create separate views for each request
-# Search views should be created separately as they are not handled by viewsets
 class CommitteeMemberViewset(ModelViewSet):
     queryset = CommitteeMember.objects.all()
     lookup_field = 'id'
