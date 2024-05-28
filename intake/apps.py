@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CommitteeConfig(AppConfig):
+class IntakeConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'committee'
+    name = 'intake'
