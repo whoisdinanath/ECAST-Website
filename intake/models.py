@@ -1,11 +1,11 @@
 from django.db import models
 import re
+import uuid
 
 # Create your models here.
 
 def verify_roll(roll):
-    # THA<0-9><0-9><0-9><B**><0-9><0-9><0-9>
-    pattern = re.compile(r'^THA\d{3}B\d{2}$')
+    pattern = re.compile(r'^THA\d{3}B[A-Z]{2}\d{3}$')
     return pattern.match(roll)
 
 department_choices = [
@@ -49,10 +49,11 @@ post_choices=[
 
 
 class IntakeForm(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=15)
-    campus_roll = models.CharField(max_length=10, validators=[verify_roll])
+    campus_roll = models.CharField(max_length=12, validators=[verify_roll])
     department = models.CharField(max_length=100, choices=department_choices)
     batch = models.CharField(max_length=10, choices=batch_choices)
     post = models.CharField(max_length=100, choices=post_choices)
