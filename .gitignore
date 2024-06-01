@@ -7,4 +7,5 @@ media/
 db.sqlite3
 mmr.sh
 push.sh
+script.py
 
