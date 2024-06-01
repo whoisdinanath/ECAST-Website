@@ -67,6 +67,29 @@ TEMPLATES = [
 CORS_ALLOW_ALL_ORIGINS = True
 WSGI_APPLICATION = 'ECAST.wsgi.application'
 
+CORS_ALLOWED_ORIGINS = ["https://ecast.tcioe.edu.np", "https://tcioe.edu.np", "http://localhost:5173"]
+
+
+CORS_ALLOW_HEADERS = (
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+)
+
+X_FRAME_OPTIONS = "ALLOW-FROM https://ecast.tcioe.edu.np"
+
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
