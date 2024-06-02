@@ -5,3 +5,5 @@ class IntakeFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = IntakeForm
         fields = '__all__'
+
+    

@@ -52,7 +52,7 @@ class IntakeForm(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=15, null=True, blank=True)
     campus_roll = models.CharField(max_length=12, validators=[verify_roll])
     department = models.CharField(max_length=100, choices=department_choices)
     batch = models.CharField(max_length=10, choices=batch_choices)
@@ -60,10 +60,10 @@ class IntakeForm(models.Model):
     about = models.TextField()
     reason_to_join = models.TextField()
     interests = models.TextField()
-    resume = models.FileField(upload_to='resumes/')
-    github_link = models.URLField(blank=True)
-    linkedin_link = models.URLField(blank=True)
-    facebook_link = models.URLField(blank=True)
+    resume = models.FileField(upload_to='resumes/', null=False, blank=False, validators=[file_validator])
+    github_link = models.URLField(blank=True, null=True)
+    linkedin_link = models.URLField(blank=True, null=True)
+    facebook_link = models.URLField(blank=True, null=True)
     filled_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -73,3 +73,4 @@ class IntakeForm(models.Model):
         verbose_name = 'Intake Form'
         verbose_name_plural = 'Intake Forms'
         ordering = ['-filled_date']
+        unique_together = ['email']
